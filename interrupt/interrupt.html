@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOscroll — Stop</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+            background: #08080f;
+        }
+
+        /* ── Background texture ── */
+        .blur-bg {
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, #0d0d1a 0px, #0d0d1a 2px, #08080f 2px, #08080f 8px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, #08080fcc 0%, #08080fff 40%);
+            z-index: 1;
+        }
+
+        /* ── Content ── */
+        .interrupt-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 24px 28px;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo-small {
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            color: #ffffff33;
+            letter-spacing: -0.5px;
+            margin-bottom: 28px;
+        }
+
+        .logo-small em {
+            color: #c084fc88;
+            font-style: normal;
+        }
+
+        /* ── Icon ring ── */
+        .icon-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #c084fc44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            animation: ring-pulse 2.5s infinite;
+            flex-shrink: 0;
+        }
+
+        .icon-ring::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 1px solid #c084fc22;
+            animation: ring-pulse 2.5s infinite 0.4s;
+        }
+
+        .icon-ring::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            border: 1px solid #c084fc11;
+            animation: ring-pulse 2.5s infinite 0.8s;
+        }
+
+        .stop-icon {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .interrupt-label {
+            font-size: 10px;
+            color: #c084fc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .big-msg {
+            font-family: 'Syne', sans-serif;
+            font-weight: 900;
+            font-size: clamp(26px, 8vw, 30px);
+            color: #fff;
+            text-align: center;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .big-msg span {
+            color: #c084fc;
+        }
+
+        .sub-msg {
+            font-size: 13px;
+            color: #ffffff55;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 280px;
+        }
+
+        .sub-msg strong {
+            color: #ffffffaa;
+            font-weight: 500;
+        }
+
+        /* ── Stat pills ── */
+        .stat-pills {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-pill {
+            background: #0f0f1e;
+            border: 1px solid #ffffff0a;
+            border-radius: 20px;
+            padding: 8px 14px;
+            text-align: center;
+        }
+
+        .pill-val {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: #c084fc;
+        }
+
+        .pill-label {
+            font-size: 10px;
+            color: #ffffff44;
+            margin-top: 1px;
+        }
+
+        /* ── AI card ── */
+        .ai-card {
+            background: #0f0f1e;
+            border: 1px solid #c084fc22;
+            border-radius: 16px;
+            padding: 14px 16px;
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c084fc55, transparent);
+        }
+
+        .ai-tag {
+            font-size: 10px;
+            color: #c084fc88;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ai-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #c084fc;
+            animation: pulse 2s infinite;
+        }
+
+        .ai-quote {
+            font-size: 13px;
+            color: #ffffffaa;
+            line-height: 1.55;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .ai-quote strong {
+            color: #fff;
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* ── Progress bar ── */
+        .progress-label {
+            font-size: 10px;
+            color: #ffffff33;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            background: #ffffff08;
+            border-radius: 4px;
+            height: 3px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c084fc, #f472b6);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* ── Buttons ── */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .btn-stop {
+            background: #c084fc;
+            color: #08080f;
+            border: none;
+            border-radius: 14px;
+            padding: 15px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            letter-spacing: -0.3px;
+            transition: transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px #c084fc44;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-stop:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px #c084fc66;
+        }
+
+        .btn-stop:active {
+            transform: scale(0.98);
+        }
+
+        .btn-snooze {
+            background: #0f0f1e;
+            color: #ffffff88;
+            border: 1px solid #ffffff10;
+            border-radius: 14px;
+            padding: 13px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-snooze:hover {
+            border-color: #c084fc44;
+            color: #fff;
+        }
+
+        .btn-ignore {
+            background: transparent;
+            color: #ffffff28;
+            border: none;
+            padding: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: color 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-ignore:hover {
+            color: #ef4444aa;
+        }
+
+        /* ── Animations ── */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes ring-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .interrupt-content {
+            animation: fadeUp 0.4s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blur-bg"></div>
+    <div class="dark-overlay"></div>
+    <div class="interrupt-content">
+
+        <div class="logo-small"><em>NO</em>scroll</div>
+
+        <div class="icon-ring">
+            <div class="stop-icon">✋</div>
+        </div>
+
+        <div class="interrupt-label">Doom Scroll Detected</div>
+
+        <div class="big-msg">Put the<br>phone <span>down.</span></div>
+
+        <div class="sub-msg" id="subMsg">
+            You've been scrolling to avoid something.<br>It's not working, is it?
+        </div>
+
+        <div class="stat-pills">
+            <div class="stat-pill">
+                <div class="pill-val" id="pillScrolls">0</div>
+                <div class="pill-label">Today's Scrolls</div>
+            </div>
+            <div class="stat-pill">
+                <div class="pill-val" id="pillTime">0m</div>
+                <div class="pill-label">Time Spent</div>
+            </div>
+            <div class="stat-pill">
+                <div class="pill-val" id="pillBehavior">😐</div>
+                <div class="pill-label">Pattern</div>
+            </div>
+        </div>
+
+        <div class="ai-card">
+            <div class="ai-tag" style="justify-content: center;">
+                <div class="ai-dot"></div> NOscroll AI
+            </div>
+            <div class="ai-quote" id="nudgeText">"Loading your personalized nudge…"</div>
+        </div>
+
+        <div class="progress-label" id="progressLabel">Daily Limit: 0% used</div>
+        <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="limitBar" style="width:0%"></div>
+        </div>
+
+        <div class="btn-stack">
+            <button class="btn-stop" id="btnStop">I'm done scrolling ✓</button>
+            <button class="btn-snooze" id="btnSnooze">Snooze for 5 minutes</button>
+            <button class="btn-ignore" id="btnIgnore">Ignore (seriously?)</button>
+        </div>
+
+    </div>
+    <script src="interrupt.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "NOscroll",
+  "version": "1.0.0",
+  "description": "Stop doom scrolling. Understand why you scroll. Take back your time.",
+  "author": "NOscroll",
+  "permissions": [
+    "storage",
+    "tabs",
+    "alarms",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.instagram.com/*",
+    "https://www.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "NOscroll",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.instagram.com/*",
+        "https://www.youtube.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["interrupt/interrupt.html", "interrupt/interrupt.js", "styles/shared.css", "icons/*"],
+      "matches": ["https://www.instagram.com/*", "https://www.youtube.com/*"]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOscroll</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+<div class="popup-root">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="logo"><em>NO</em>scroll</div>
+    <div class="topbar-right">
+      <button class="shield-toggle on" id="shieldToggle" aria-label="Toggle shield">
+        <span class="shield-knob"></span>
+      </button>
+      <div class="badge badge-on" id="shieldBadge">● Active</div>
+    </div>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div class="content-area">
+
+    <!-- HOME TAB -->
+    <div class="tab-panel active" id="tab-home">
+      <div class="hero">
+        <div class="greeting" id="greeting">hey there 👋</div>
+        <div class="headline" id="headline">loading...</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card purple">
+          <div class="stat-label">reels watched</div>
+          <div class="stat-value" id="statScrolls">0</div>
+          <div class="stat-sub" id="statScrollsSub">clean slate 🌿</div>
+        </div>
+        <div class="stat-card pink">
+          <div class="stat-label">time lost</div>
+          <div class="stat-value" id="statTime">0m</div>
+          <div class="stat-sub">today on reels</div>
+        </div>
+        <div class="stat-card cyan">
+          <div class="stat-label">warnings</div>
+          <div class="stat-value" id="statWarnings">0</div>
+          <div class="stat-sub" id="statWarnSub">stay strong</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-label">streak</div>
+          <div class="stat-value" id="statStreak">0<small>d</small></div>
+          <div class="stat-sub">keep going...</div>
+        </div>
+      </div>
+
+      <div class="section-label">app usage today</div>
+      <div class="usage-block">
+        <div class="usage-row">
+          <div class="usage-icon ig">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#f09433"/>
+                  <stop offset="25%" stop-color="#e6683c"/>
+                  <stop offset="50%" stop-color="#dc2743"/>
+                  <stop offset="75%" stop-color="#cc2366"/>
+                  <stop offset="100%" stop-color="#bc1888"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#igGrad)"/>
+              <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none"/>
+              <circle cx="17.2" cy="6.8" r="1.1" fill="white"/>
+            </svg>
+          </div>
+          <div class="usage-info">
+            <div class="usage-name">Instagram <span id="igTime">0 min</span></div>
+            <div class="usage-bar"><div class="usage-fill fill-pink" id="igBar" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="usage-row">
+          <div class="usage-icon yt">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="5" width="22" height="14" rx="4" fill="#FF0000"/>
+              <polygon points="10,8.5 10,15.5 16,12" fill="white"/>
+            </svg>
+          </div>
+          <div class="usage-info">
+            <div class="usage-name">YouTube <span id="ytTime">0 min</span></div>
+            <div class="usage-bar"><div class="usage-fill fill-red" id="ytBar" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert-block" id="alertBlock" style="display:none">
+        <div class="alert-dot"></div>
+        <div class="alert-body">
+          <div class="alert-title">last warning</div>
+          <div class="alert-msg" id="alertMsg"></div>
+        </div>
+      </div>
+
+      <div class="motivation-card">
+        <div class="motivation-label">💬 mindful moment</div>
+        <div class="motivation-text" id="motivationText"></div>
+        <div class="motivation-timer" id="motivationTimer"></div>
+      </div>
+    </div>
+
+    <!-- STATS TAB -->
+    <div class="tab-panel" id="tab-stats">
+      <div class="section-label" style="margin-top:0">this week</div>
+      <div class="bar-chart" id="barChart"></div>
+
+      <div class="stats-rows">
+        <div class="stats-row"><div class="stats-row-label">Today's Scrolls</div><div class="stats-row-value purple" id="s-scrolls">0</div></div>
+        <div class="stats-row"><div class="stats-row-label">Time on Reels Today</div><div class="stats-row-value pink" id="s-time">0m</div></div>
+        <div class="stats-row"><div class="stats-row-label">Warnings Fired Today</div><div class="stats-row-value cyan" id="s-warnings">0</div></div>
+        <div class="stats-row"><div class="stats-row-label">Current Streak</div><div class="stats-row-value amber" id="s-streak">0 days</div></div>
+        <div class="stats-row"><div class="stats-row-label">Instagram Time</div><div class="stats-row-value" id="s-ig">0m</div></div>
+        <div class="stats-row"><div class="stats-row-label">YouTube Time</div><div class="stats-row-value" id="s-yt">0m</div></div>
+      </div>
+
+      <div class="stats-footer" id="statsFooter">Every session tracked. Stay aware.</div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab-panel" id="tab-settings">
+      <div class="settings-section">
+        <div class="settings-section-title">⏱ warn me after</div>
+        <div class="settings-desc">An interrupt screen appears when you hit this limit.</div>
+        <div class="chip-row">
+          <button class="chip" data-mins="15"><span class="chip-val">15</span><span class="chip-unit">min</span></button>
+          <button class="chip chip-active" data-mins="30"><span class="chip-val">30</span><span class="chip-unit">min</span></button>
+          <button class="chip" data-mins="60"><span class="chip-val">60</span><span class="chip-unit">min</span></button>
+          <button class="chip" id="customLimitBtn"><span class="chip-val" id="customLimitVal">✎</span><span class="chip-unit" id="customLimitUnit">custom</span></button>
+        </div>
+        <div class="custom-limit-wrap" id="customLimitWrap" style="display:none;">
+          <input type="number" id="customLimitInput" class="custom-input" placeholder="e.g. 45" min="1" max="999">
+          <button id="saveCustomBtn" class="custom-save-btn">Save</button>
+        </div>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">🛡 monitoring</div>
+        <div class="settings-desc">
+          NOscroll is currently <strong id="shieldStatus">active</strong> on Instagram & YouTube reels.
+        </div>
+        <div class="settings-note">Toggle the shield in the top bar to pause monitoring.</div>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">📊 trigger rules</div>
+        <div class="settings-row-info">
+          <div class="info-row"><span>Scroll threshold</span><span class="info-val">50 swipes</span></div>
+          <div class="info-row"><span>Time threshold</span><span class="info-val" id="infoLimit">30 min</span></div>
+          <div class="info-row"><span>Snooze duration</span><span class="info-val">5 min</span></div>
+          <div class="info-row"><span>Late night mode</span><span class="info-val">after 11 PM</span></div>
+        </div>
+      </div>
+
+      <div class="settings-divider"></div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">🗑 reset</div>
+        <div class="settings-desc">Clear today's scroll count, time, and warnings.</div>
+        <button class="reset-btn" id="resetBtn">Reset Today's Data</button>
+      </div>
+    </div>
+
+  </div><!-- /content-area -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" data-tab="home"><span class="nav-icon">⊞</span>home</button>
+    <button class="nav-btn" data-tab="stats"><span class="nav-icon">◎</span>stats</button>
+    <button class="nav-btn" data-tab="settings"><span class="nav-icon">⚙</span>settings</button>
+  </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

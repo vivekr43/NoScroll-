@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────── */
+:root {
+  --bg:         #0a0a0f;
+  --bg-card:    rgba(255, 255, 255, 0.04);
+  --bg-card2:   rgba(255, 255, 255, 0.07);
+  --border:     rgba(255, 255, 255, 0.08);
+  --accent:     #c084fc;
+  --accent2:    #f472b6;
+  --accent-glow: rgba(192, 132, 252, 0.25);
+  --text:       #f1f0f5;
+  --text-muted: #8b8a9a;
+  --text-dim:   #4a4960;
+  --danger:     #ef4444;
+  --success:    #22c55e;
+  --warning:    #f59e0b;
+  --font:       'Syne', sans-serif;
+  --radius:     16px;
+  --radius-sm:  10px;
+  --radius-pill:999px;
+  --shadow:     0 8px 32px rgba(0,0,0,0.4);
+  --glass:      blur(16px) saturate(180%);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Glassmorphism Card ─────────────────────────────────── */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass);
+  -webkit-backdrop-filter: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.glass-card-hover {
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.glass-card-hover:hover {
+  background: var(--bg-card2);
+  border-color: rgba(192,132,252,0.25);
+  transform: translateY(-2px);
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: transform 0.15s, opacity 0.15s, box-shadow 0.2s;
+  letter-spacing: 0.02em;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-primary:hover { box-shadow: 0 6px 30px rgba(192,132,252,0.5); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-danger {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: var(--danger);
+}
+.btn-danger:hover { background: rgba(239,68,68,0.2); }
+
+/* ── Pill / Badge ───────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pill-accent {
+  background: rgba(192,132,252,0.15);
+  border: 1px solid rgba(192,132,252,0.3);
+  color: var(--accent);
+}
+.pill-danger {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: var(--danger);
+}
+.pill-muted {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* ── Progress Bar ───────────────────────────────────────── */
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.4s ease;
+}
+
+/* ── Pulsing Rings (interrupt screen) ──────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: pulse-ring 2s ease-out infinite;
+}
+.ring:nth-child(2) { animation-delay: 0.5s; }
+.ring:nth-child(3) { animation-delay: 1s;   }
+
+/* ── Gradient Text ──────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Toggle Switch ──────────────────────────────────────── */
+.toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+}
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.toggle-slider::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  left: 3px; top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.toggle input:checked + .toggle-slider {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-color: var(--accent);
+}
+.toggle input:checked + .toggle-slider::after {
+  transform: translateX(22px);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(192,132,252,0.3); border-radius: 4px; }
