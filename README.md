@@ -2,9 +2,9 @@
 
 NOscroll is a lightweight, Vanilla JavaScript Chrome Extension designed to break the cycle of doomscrolling. 
 
-We built this project to reclaim our attention and build better digital habits. By detecting endless scrolling behaviors on highly addictive platforms like Instagram Reels and YouTube Shorts, NOscroll interrupts the user at critical moments to bring them back to reality. 
+I built this project to reclaim our attention and build better digital habits. By detecting endless scrolling behaviors on highly addictive platforms like Instagram Reels and YouTube Shorts, NOscroll interrupts the user at critical moments to bring them back to reality. 
 
-## 🌟 Why We Made This
+## 🌟 Why I Made This
 Social media platforms use algorithms designed to maximize time-on-app through endless short-form video feeds. Users often fall into a trap of "doomscrolling" out of boredom, avoidance, or late-night fatigue. 
 
 NOscroll was created with the idea to:
