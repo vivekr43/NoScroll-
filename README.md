@@ -4,7 +4,7 @@
 
 ### *Stop doom scrolling. Understand why. Take back your time.*
 
-**A Chrome Extension that detects doomscrolling on Instagram Reels & YouTube Shorts — and interrupts you with a full-screen AI-powered nudge before it's too late.**
+**A Chrome Extension that detects doomscrolling on Instagram Reels & YouTube Shorts and interrupts you with a full-screen AI-powered nudge before it's too late.**
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-Manifest_V3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/vivekr43/NoScroll-)
 [![Platform: Instagram](https://img.shields.io/badge/Platform-Instagram-E1306C?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com)
@@ -28,11 +28,11 @@
 
 We've all been there. You open Instagram *"just for a second"* and look up 45 minutes later wondering what happened to your evening.
 
-The problem isn't willpower — it's that these apps are **engineered to be addictive**. Instagram Reels and YouTube Shorts are infinite scroll machines optimized to keep your thumb moving. The algorithm knows exactly what to show you next.
+The problem isn't willpower it's that these apps are **engineered to be addictive**. Instagram Reels and YouTube Shorts are infinite scroll machines optimized to keep your thumb moving. The algorithm knows exactly what to show you next.
 
 **NOscroll fights back.**
 
-It watches your scrolling behaviour in the background, tracks how long you've been on reels today, and when you cross your personal limit — it **throws up a full-screen shield** that forces you to pause, see your actual stats, and make a conscious choice about whether to continue.
+It watches your scrolling behaviour in the background, tracks how long you've been on reels today, and when you cross your personal limit  it **throws up a full-screen shield** that forces you to pause, see your actual stats, and make a conscious choice about whether to continue.
 
 ---
 
@@ -44,10 +44,10 @@ It watches your scrolling behaviour in the background, tracks how long you've be
 - Tracks exact time spent on each platform with per-app breakdown
 
 ### 📊 Live Dashboard
-- **Reels Watched** — how many you've swiped through today
-- **Time Lost** — total minutes burned on short-form content
-- **Warnings Fired** — how many times the interrupt screen has appeared
-- **Streak** — consecutive days you've stayed under your limit
+- **Reels Watched** : how many you've swiped through today
+- **Time Lost** : total minutes burned on short-form content
+- **Warnings Fired** : how many times the interrupt screen has appeared
+- **Streak** : consecutive days you've stayed under your limit
 
 ### ⏱️ Customisable Limits
 - Preset options: **15 min / 30 min / 60 min**
